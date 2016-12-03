@@ -1,0 +1,13 @@
+[
+{"start-city": "Los Angeles", "transit-city": ["Chicago", "Boston", "Philadelphia", "New York City"]},
+{"start-city": "Las Vegas", "transit-city": ["Chicago"]},
+{"start-city": "Bangalore", "transit-city": ["New York City", "Niagara Falls", "Chicago", "Atlanta", "Miami", "Las Vegas", "San Francisco", "Washington D. C."]},
+{"start-city": "Chicago", "transit-city": ["Chicago"]},
+{"start-city": "San Francisco", "transit-city": ["Los Angeles", "Las Vegas", "Dallas", "Miami", "Chicago", "New York City"]},
+{"start-city": "Sydney", "transit-city": ["Los Angeles", "San Diego", "San Francisco", "Las Vegas", "Chicago"]},
+{"start-city": "Chicago", "transit-city": ["Chicago"]},
+{"start-city": "San Francisco", "transit-city": ["Chicago"]},
+{"start-city": "Chicago", "transit-city": ["Chicago"]},
+{"start-city": "Chicago", "transit-city": ["Chicago"]},
+{"start-city": "Chicago", "transit-city": ["Chicago"]}
+]
