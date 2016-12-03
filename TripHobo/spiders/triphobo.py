@@ -34,15 +34,21 @@ class TripSpider(scrapy.Spider):
         #     yield scrapy.Request(next_page, callback=self.parse)
 
     def parse_plan(self, response):
-        def extract_with_css(query):
-            return response.css(query).extract_first().strip()
+        # def extract_with_css(query):
+        #     return response.css(query).extract_first().strip()
+
         # #'start-city': extract_with_css('.start-city-name span::text')
         # yield {
         #     'transit-city': extract_with_css('.transit-city span::text'),
         # }
-        tmp = response.xpath('//*[contains(@class, "transit-city")]/span//text()').extract()
-        print tmp
+
+        # title = response.xpath('//*[contains(@class, "step-2-itin-name")]/h1//text()')
+        # print "~~~~~~~~~~~~~~~~~~~\n"
+        # print response.xpath('//*[contains(@class, "step-2-itin-name")]/h1//text()')[0].extract()
+
         yield {
-            'start-city': extract_with_css('.start-city-name span::text'),
-            'transit-city': tmp,
+            # 'title': extract_with_css('.step-2-itin-name h1::text'),
+            'title': response.xpath('//*[contains(@class, "step-2-itin-name")]/h1//text()|//*[contains(@class, "step-2-itin-name")]/h2//text()')[0].extract(),
+            'start-city': response.xpath('//*[contains(@class, "start-city-name")]/span//text()').extract(),
+            'transit-city': response.xpath('//*[contains(@class, "transit-city")]/span//text()').extract(),
         }
