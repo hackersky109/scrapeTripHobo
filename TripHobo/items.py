@@ -7,6 +7,11 @@
 
 import scrapy
 
+class PathItem(scrapy.Item):
+    views = scrapy.Field()
+    title = scrapy.Field()
+    start_city = scrapy.Field()
+    transit_city = scrapy.Field()
 
 class TriphoboItem(scrapy.Item):
     # define the fields for your item here like:
