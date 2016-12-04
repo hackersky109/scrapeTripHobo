@@ -1,7 +1,6 @@
 import scrapy
-
 from TripHobo.items import PathItem
-# scrapy crawl triphobo -o triphobo.json
+#output json format : scrapy crawl triphobo -o triphobo.json
 
 count = 0
 
@@ -11,10 +10,11 @@ class TripSpider(scrapy.Spider):
 
     def parse(self, response):
 
-        # follow links to subpages
-        views = response.xpath('//*[contains(@class, "blocklist-total-views pull-right")]//text()').extract()
-        for href in response.css('.blocklist-trip-name-wrapper a::attr(href)').extract():
-             yield scrapy.Request(href,meta = {'views':views},callback=self.parse_plan)
+        for block in response.css('.itinerary-blocklist-wrapper'):
+            # follow links to subpages
+            href = block.css('a::attr(href)').extract()[0]
+            views = block.css('.blocklist-total-views::text').extract_first()
+            yield scrapy.Request(href,meta = {'views':views},callback=self.parse_plan)
 
         # follow pagination links
         global count
@@ -27,6 +27,7 @@ class TripSpider(scrapy.Spider):
         item = PathItem()
 
         item['title'] = response.xpath('//*[contains(@class, "step-2-itin-name")]/h1//text()|//*[contains(@class, "step-2-itin-name")]/h2//text()')[0].extract()
+        item['views'] = response.meta['views']
         startcity = response.xpath('//*[contains(@class, "start-city-name")]/span//text()').extract()
         if len(startcity) :
                 item['start_city'] = startcity
