@@ -13,8 +13,9 @@ class TripSpider(scrapy.Spider):
         for block in response.css('.itinerary-blocklist-wrapper'):
             # follow links to subpages
             href = block.css('a::attr(href)').extract()[0]
+            total_days = block.css('.blocklist-total-days::text').extract_first()
             views = block.css('.blocklist-total-views::text').extract_first()
-            yield scrapy.Request(href,meta = {'views':views},callback=self.parse_plan)
+            yield scrapy.Request(href,meta = {'views':views, 'total_days':total_days},callback=self.parse_plan)
 
         # follow pagination links
         global count
@@ -27,7 +28,11 @@ class TripSpider(scrapy.Spider):
         item = PathItem()
 
         item['title'] = response.xpath('//*[contains(@class, "step-2-itin-name")]/h1//text()|//*[contains(@class, "step-2-itin-name")]/h2//text()')[0].extract()
+        item['total_days'] = response.meta['total_days']
         item['views'] = response.meta['views']
+        item['startTime'] = response.xpath('//*[contains(@itemprop, "startTime")]//text()').extract()
+        item['endTime'] = response.xpath('//*[contains(@itemprop, "endTime")]//text()').extract()
+        # item['endTime'] =
         startcity = response.xpath('//*[contains(@class, "start-city-name")]/span//text()').extract()
         if len(startcity) :
                 item['start_city'] = startcity

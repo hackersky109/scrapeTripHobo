@@ -8,8 +8,11 @@
 import scrapy
 
 class PathItem(scrapy.Item):
-    views = scrapy.Field()
     title = scrapy.Field()
+    total_days = scrapy.Field()
+    views = scrapy.Field()
+    startTime = scrapy.Field()
+    endTime = scrapy.Field()
     start_city = scrapy.Field()
     transit_city = scrapy.Field()
 
