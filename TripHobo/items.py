@@ -15,6 +15,7 @@ class PathItem(scrapy.Item):
     endTime = scrapy.Field()
     start_city = scrapy.Field()
     transit_city = scrapy.Field()
+    plan = scrapy.Field()
 
 class TriphoboItem(scrapy.Item):
     # define the fields for your item here like:
